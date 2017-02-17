@@ -1,7 +1,7 @@
 <?xml version="1.0"?>
 
 <st-source>
-<time-stamp>From VisualWorks® Personal Use Edition, 8.2 of 15 de julio de 2016 on 17 de febrero de 2017 at 18:14:49</time-stamp>
+<time-stamp>From VisualWorks® Personal Use Edition, 8.2 of 15 de julio de 2016 on 17 de febrero de 2017 at 20:20:42</time-stamp>
 
 
 <component-created>
@@ -13,36 +13,6 @@
 <name>Laberinto</name> <type>package</type>
 <property>packageName</property> <value>'Laberinto'</value>
 </component-property>
-
-<class>
-<name>Factory</name>
-<environment>Smalltalk</environment>
-<super>Core.Object</super>
-<private>false</private>
-<indexed-type>none</indexed-type>
-<inst-vars></inst-vars>
-<class-inst-vars></class-inst-vars>
-<imports></imports>
-<category></category>
-<attributes>
-<package>Laberinto</package>
-</attributes>
-</class>
-
-<class>
-<name>Laberinto</name>
-<environment>Smalltalk</environment>
-<super>Core.Object</super>
-<private>false</private>
-<indexed-type>none</indexed-type>
-<inst-vars>Habitaciones </inst-vars>
-<class-inst-vars></class-inst-vars>
-<imports></imports>
-<category></category>
-<attributes>
-<package>Laberinto</package>
-</attributes>
-</class>
 
 <class>
 <name>JuegoLaberinto</name>
@@ -90,12 +60,42 @@
 </class>
 
 <class>
+<name>Bomba</name>
+<environment>Smalltalk</environment>
+<super>ElementoMapa</super>
+<private>false</private>
+<indexed-type>none</indexed-type>
+<inst-vars>activada </inst-vars>
+<class-inst-vars></class-inst-vars>
+<imports></imports>
+<category></category>
+<attributes>
+<package>Laberinto</package>
+</attributes>
+</class>
+
+<class>
 <name>Pared</name>
 <environment>Smalltalk</environment>
 <super>ElementoMapa</super>
 <private>false</private>
 <indexed-type>none</indexed-type>
 <inst-vars></inst-vars>
+<class-inst-vars></class-inst-vars>
+<imports></imports>
+<category></category>
+<attributes>
+<package>Laberinto</package>
+</attributes>
+</class>
+
+<class>
+<name>ParedBomba</name>
+<environment>Smalltalk</environment>
+<super>Pared</super>
+<private>false</private>
+<indexed-type>none</indexed-type>
+<inst-vars>bomba </inst-vars>
 <class-inst-vars></class-inst-vars>
 <imports></imports>
 <category></category>
@@ -120,12 +120,27 @@
 </class>
 
 <class>
-<name>Bomba</name>
+<name>Factory</name>
 <environment>Smalltalk</environment>
-<super>ElementoMapa</super>
+<super>Core.Object</super>
 <private>false</private>
 <indexed-type>none</indexed-type>
-<inst-vars>activada </inst-vars>
+<inst-vars></inst-vars>
+<class-inst-vars></class-inst-vars>
+<imports></imports>
+<category></category>
+<attributes>
+<package>Laberinto</package>
+</attributes>
+</class>
+
+<class>
+<name>Laberinto</name>
+<environment>Smalltalk</environment>
+<super>Core.Object</super>
+<private>false</private>
+<indexed-type>none</indexed-type>
+<inst-vars>Habitaciones </inst-vars>
 <class-inst-vars></class-inst-vars>
 <imports></imports>
 <category></category>
@@ -195,15 +210,19 @@
 <methods>
 <class-id>Factory</class-id> <category>creators</category>
 
-<body package="Laberinto" selector="crearHabitacion">crearHabitacion	^Habitacion new</body>
-
-<body package="Laberinto" selector="crearLaberinto2Habitaciones">crearLaberinto2Habitaciones	| pared1 pared2 pared3 pared4 pared5 pared6 puerta habitacion1 habitacion2 laberinto|		pared1 := self crearPared.	pared2 := self crearPared.	pared3 := self crearPared.	pared4 := self crearPared.	pared5 := self crearPared.	pared6 := self crearPared.			puerta := self crearPuerta.		habitacion1 := self crearHabitacion.	habitacion2 := self crearHabitacion.		laberinto := self crearLaberinto.		habitacion1 norte:pared1.	habitacion1 este: pared2.	habitacion1 sur: puerta.	habitacion1 oeste: pared3.		habitacion2 norte: puerta.	habitacion2 este: pared4.	habitacion2 sur: pared5.	habitacion2 oeste: pared6.		puerta abierta: false.	puerta hab1: habitacion1.	puerta hab2: habitacion2.		laberinto addHabitacion: habitacion1.	laberinto addHabitacion: habitacion2.		^laberinto.</body>
-
-<body package="Laberinto" selector="crearLaberinto">crearLaberinto	^Laberinto new.</body>
+<body package="Laberinto" selector="crearParedBomba">crearParedBomba	^Bomba new.</body>
 
 <body package="Laberinto" selector="crearPared">crearPared	^Pared new</body>
 
+<body package="Laberinto" selector="crearHabitacion">crearHabitacion	^Habitacion new</body>
+
+<body package="Laberinto" selector="crearLaberinto2HabitacionesConBombas">crearLaberinto2HabitacionesConBombas	| paredBomba1 pared2 pared3 paredBomba4 pared5 pared6 puerta habitacion1 habitacion2 laberinto|		paredBomba1 := self crearParedBomba.	paredBomba1 activada: true.	pared2 := self crearPared.	pared3 := self crearPared.	paredBomba4 := self crearParedBomba.	paredBomba4 activada: true.	pared5 := self crearPared.	pared6 := self crearPared.			puerta := self crearPuerta.		habitacion1 := self crearHabitacion.	habitacion2 := self crearHabitacion.		laberinto := self crearLaberinto.		habitacion1 norte:paredBomba1.	habitacion1 este: pared2.	habitacion1 sur: puerta.	habitacion1 oeste: pared3.		habitacion2 norte: puerta.	habitacion2 este: paredBomba4.	habitacion2 sur: pared5.	habitacion2 oeste: pared6.		puerta abierta: false.	puerta hab1: habitacion1.	puerta hab2: habitacion2.		laberinto addHabitacion: habitacion1.	laberinto addHabitacion: habitacion2.		^laberinto.</body>
+
+<body package="Laberinto" selector="crearLaberinto">crearLaberinto	^Laberinto new.</body>
+
 <body package="Laberinto" selector="crearPuerta">crearPuerta	^Puerta new</body>
+
+<body package="Laberinto" selector="crearLaberinto2Habitaciones">crearLaberinto2Habitaciones	| pared1 pared2 pared3 pared4 pared5 pared6 puerta habitacion1 habitacion2 laberinto|		pared1 := self crearPared.	pared2 := self crearPared.	pared3 := self crearPared.	pared4 := self crearPared.	pared5 := self crearPared.	pared6 := self crearPared.			puerta := self crearPuerta.		habitacion1 := self crearHabitacion.	habitacion2 := self crearHabitacion.		laberinto := self crearLaberinto.		habitacion1 norte:pared1.	habitacion1 este: pared2.	habitacion1 sur: puerta.	habitacion1 oeste: pared3.		habitacion2 norte: puerta.	habitacion2 este: pared4.	habitacion2 sur: pared5.	habitacion2 oeste: pared6.		puerta abierta: false.	puerta hab1: habitacion1.	puerta hab2: habitacion2.		laberinto addHabitacion: habitacion1.	laberinto addHabitacion: habitacion2.		^laberinto.</body>
 </methods>
 
 <methods>
@@ -224,9 +243,43 @@
 <methods>
 <class-id>Bomba</class-id> <category>initialize-release</category>
 
-<body package="Laberinto" selector="entar">entar 	true=self activada ifTrue: [		Transcript show: 'La bomba esta activada'.		self activada:false.		]	ifFalse: [		Transcript show: 'La bomba no esta activada'.		].</body>
+<body package="Laberinto" selector="entrar">entrar	self activada ifTrue: [ 		self activada:false.		Transcript show:'te acaba de explotar la bomba en la cara';cr.		] 	ifFalse: [ 		Transcript show:'la bomba esta desactivada';cr.		]</body>
 
 <body package="Laberinto" selector="initialize">initialize	"Initialize a newly created instance. This method must answer the receiver."	super initialize.	" *** Replace this comment with the appropriate initialization code *** "	^self</body>
+</methods>
+
+
+<methods>
+<class-id>Pared</class-id> <category>Operations</category>
+
+<body package="Laberinto" selector="entrar">entrar		Transcript show:'Te chocaste con una pared'.</body>
+</methods>
+
+<methods>
+<class-id>Pared</class-id> <category>initialize-release</category>
+
+<body package="Laberinto" selector="initialize">initialize	"Initialize a newly created instance. This method must answer the receiver."	super initialize.	" *** Replace this comment with the appropriate initialization code *** "	^self</body>
+</methods>
+
+
+<methods>
+<class-id>ParedBomba</class-id> <category>accessing</category>
+
+<body package="Laberinto" selector="bomba">bomba	^bomba</body>
+
+<body package="Laberinto" selector="bomba:">bomba: anObject	bomba := anObject</body>
+</methods>
+
+<methods>
+<class-id>ParedBomba</class-id> <category>Operations</category>
+
+<body package="Laberinto" selector="entrar">entrar	self bomba activada ifTrue: [		Transcript show:'¡Has explotado!';cr.		self bomba activada: false.			] ifFalse: [		super entrar.	].</body>
+</methods>
+
+<methods>
+<class-id>ParedBomba</class-id> <category>initialize-release</category>
+
+<body package="Laberinto" selector="initialize">initialize	"Initialize a newly created instance. This method must answer the receiver."	super initialize.	" *** Replace this comment with the appropriate initialization code *** "	bomba := Bomba new.	^self</body>
 </methods>
 
 
@@ -307,19 +360,6 @@
 <class-id>Habitacion</class-id> <category>initialize-release</category>
 
 <body package="Laberinto" selector="initialize">initialize	"Initialize a newly created instance. This method must answer the receiver."	super initialize.	" *** Edit the following to properly initialize instance variables ***"	norte := nil.	sur := nil.	este := nil.	oeste := nil.	" *** And replace this comment with additional initialization code *** "	^self</body>
-</methods>
-
-
-<methods>
-<class-id>Pared</class-id> <category>As yet unclassified</category>
-
-<body package="Laberinto" selector="entrar">entrar		Transcript show:'Te chocaste con una pared'</body>
-</methods>
-
-<methods>
-<class-id>Pared</class-id> <category>initialize-release</category>
-
-<body package="Laberinto" selector="initialize">initialize	"Initialize a newly created instance. This method must answer the receiver."	super initialize.	" *** Replace this comment with the appropriate initialization code *** "	^self</body>
 </methods>
 
 
