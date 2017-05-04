@@ -1,7 +1,7 @@
 <?xml version="1.0"?>
 
 <st-source>
-<time-stamp>From VisualWorks® Personal Use Edition, 8.2 of 15 de julio de 2016 on 7 de marzo de 2017 at 19:48:43</time-stamp>
+<time-stamp>From VisualWorks® Personal Use Edition, 8.2 of 15 de julio de 2016 on 4 de mayo de 2017 at 14:53:27</time-stamp>
 
 
 <component-created>
@@ -377,15 +377,17 @@
 <methods>
 <class-id>Habitacion</class-id> <category>initialize-release</category>
 
-<body package="Laberinto" selector="initialize">initialize	"Initialize a newly created instance. This method must answer the receiver."	super initialize.	" *** Edit the following to properly initialize instance variables ***"	norte := nil.	sur := nil.	este := nil.	oeste := nil.	" *** And replace this comment with additional initialization code *** "	^self</body>
+<body package="Laberinto" selector="initialize">initialize	"Initialize a newly created instance. This method must answer the receiver."	super initialize.	" *** Edit the following to properly initialize instance variables ***"	lados := List new.	" *** And replace this comment with additional initialization code *** "	^self</body>
 </methods>
 
 <methods>
 <class-id>Habitacion</class-id> <category>accessing</category>
 
+<body package="Laberinto" selector="lados:">lados: anObject	lados := anObject</body>
+
 <body package="Laberinto" selector="lados">lados	^lados</body>
 
-<body package="Laberinto" selector="lados:">lados: anObject	lados := anObject</body>
+<body package="Laberinto" selector="addLado:">addLado:unLado	self lados add:unLado</body>
 </methods>
 
 <methods>
@@ -461,7 +463,7 @@
 
 <body package="Laberinto" selector="crearCuadro">crearCuadro	^Cuadro new.</body>
 
-<body package="Laberinto" selector="crearLaberinto2Habitaciones">crearLaberinto2Habitaciones	| pared1 pared2 pared3 pared4 pared5 pared6 puerta habitacion1 habitacion2 laberinto|		pared1 := self crearPared.	pared2 := self crearPared.	pared3 := self crearPared.	pared4 := self crearPared.	pared5 := self crearPared.	pared6 := self crearPared.			puerta := self crearPuerta.		habitacion1 := self crearHabitacion.	habitacion2 := self crearHabitacion.		laberinto := self crearLaberinto.		habitacion1 norte:pared1.	habitacion1 este: pared2.	habitacion1 sur: puerta.	habitacion1 oeste: pared3.		habitacion2 norte: puerta.	habitacion2 este: pared4.	habitacion2 sur: pared5.	habitacion2 oeste: pared6.		puerta abierta: false.	puerta hab1: habitacion1.	puerta hab2: habitacion2.		laberinto addHabitacion: habitacion1.	laberinto addHabitacion: habitacion2.		^laberinto.</body>
+<body package="Laberinto" selector="crearLaberinto2Habitaciones">crearLaberinto2Habitaciones	| pared1 pared2 pared3 pared4 pared5 pared6 puerta habitacion1 habitacion2 laberinto|		pared1 := self crearPared.	pared2 := self crearPared.	pared3 := self crearPared.	pared4 := self crearPared.	pared5 := self crearPared.	pared6 := self crearPared.			puerta := self crearPuerta.		habitacion1 := self crearHabitacion.	habitacion2 := self crearHabitacion.		laberinto := self crearLaberinto.		habitacion1 addLado:pared1.	habitacion1 addLado: pared2.	habitacion1 addLado: puerta.	habitacion1 addLado: pared3.		habitacion2 addLado: puerta.	habitacion2 addLado: pared4.	habitacion2 addLado: pared5.	habitacion2 addLado: pared6.		puerta abierta: false.	puerta hab1: habitacion1.	puerta hab2: habitacion2.		laberinto addHabitacion: habitacion1.	laberinto addHabitacion: habitacion2.		^laberinto.</body>
 </methods>
 
 <methods>
