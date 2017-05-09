@@ -1,0 +1,7 @@
+factoria := Factory new.
+jl := JuegoLaberinto new.
+laberinto := factoria crearLaberinto2HabitacionesComposite.
+iterador := laberinto createIterator.
+
+lado := (laberinto habitaciones at:(iterador first)) elementosMapa first.
+lado entrar.
